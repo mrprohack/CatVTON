@@ -9,6 +9,18 @@ from model.cloth_masker import AutoMasker
 from model.pipeline import CatVTONPipeline
 from utils import init_weight_dtype, resize_and_crop, resize_and_padding
 
+def ensure_directory_exists(file_path):
+    directory = os.path.dirname(file_path)
+    if directory and not os.path.exists(directory):
+        os.makedirs(directory)
+
+def ensure_extension(file_path, default_ext='.png'):
+    """Ensure the file path has an image extension"""
+    _, ext = os.path.splitext(file_path)
+    if not ext:
+        file_path += default_ext
+    return file_path
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Run CatVTON inference from command line")
     parser.add_argument(
@@ -82,6 +94,10 @@ def parse_args():
 
 def main():
     args = parse_args()
+    
+    # Ensure output path has extension and directory exists
+    args.output_path = ensure_extension(args.output_path)
+    ensure_directory_exists(args.output_path)
     
     # Download and initialize model
     print("Initializing models...")
