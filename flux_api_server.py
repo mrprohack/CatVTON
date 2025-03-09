@@ -35,7 +35,7 @@ automasker = None
 CONFIG = {
     "width": 768,
     "height": 1024,
-    "base_model_path": "Models/FLUX.1-Fill-dev",
+    "base_model_path": "black-forest-labs/FLUX.1-Fill-dev",
     "resume_path": "zhengchong/CatVTON"
 }
 
